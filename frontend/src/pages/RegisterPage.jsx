@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../App.css';
+import { useAuth } from '../context/AuthContext'
+import '../App.css'
 
-export default function HomePage() {
+export default function RegisterPage() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
 
@@ -10,29 +10,26 @@ export default function HomePage() {
         logout();
     };
 
-    const handleRegisterUser = () => {
-        navigate('/register');
+    const handleGoHome = () => {
+        navigate('/home');
     };
 
     return (
         <div className="login-container">
-            <h2>Hello, {user?.email || 'User'}!</h2>
-            <p>Welcome to your home page.</p>
-
+            <h2>Hello!</h2>
+            <p>Welcome to the register page.</p>
             <div style={{ display: 'flex', gap: '12px', marginTop: '20px', justifyContent: 'center' }}>
                 <button
-                    onClick={handleRegisterUser}
+                    onClick={handleGoHome}
                     style={{
                         padding: '8px 16px',
                         cursor: 'pointer',
-                        backgroundColor: '#0066cc',
-                        color: '#fff',
                         border: 'none',
                         borderRadius: '4px',
                         fontWeight: '500'
                     }}
                 >
-                    Register User
+                    Back
                 </button>
 
                 <button

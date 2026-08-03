@@ -1,17 +1,41 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider, useAuth } from './context/AuthContext';
+
 import './App.css'
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+
+import ProtectedRoute from './components/ProtectedRoute';
+
+function DefaultRedirect() {
+    const { isAuthenticated } = useAuth();
+    return <Navigate to={isAuthenticated ? "/home" : "/login"} replace />;
+}
 
 export default function App() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Navigate to='/login' replace />} />
+            <AuthProvider>
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
 
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/home" element={<HomePage />} />
-            </Routes>
+                    <Route path="/home" element={
+                        <ProtectedRoute>
+                            <HomePage />
+                        </ProtectedRoute>
+                        }
+                    />
+
+                    <Route path="/register" element={
+                        <ProtectedRoute>
+                            <RegisterPage />
+                        </ProtectedRoute>
+                        }
+                    />
+                    <Route path="*" element={<DefaultRedirect />} />
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     );
 }
