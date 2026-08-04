@@ -30,7 +30,7 @@ export default function HomePage() {
 
     return (
         <div className="login-container">
-            <h2>Hello, {user?.email || 'User'}!</h2>
+            <h2>Hello, {user?.name || 'User'}!</h2>
             <p>Welcome to your home page.</p>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: '20px' }}>

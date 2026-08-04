@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../App.css';
 
@@ -9,7 +8,6 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigate  = useNavigate();
 
     useEffect(() => {
         logout();
@@ -35,7 +33,6 @@ export default function LoginPage() {
             });
 
             const text = await response.text();
-            // 2. Parse only if content exists, otherwise default to empty object
             const data = text ? JSON.parse(text) : {};
 
             if (!response.ok) {
@@ -44,8 +41,7 @@ export default function LoginPage() {
                 }
                 throw new Error(data.message || `Server error (${response.status})`);
             }
-
-            login({ token: data.token, email: data.email, role: data.role });
+            login({ token: data.token, name: data.name, role: data.role });
         } catch (err) {
             setError(err.message || 'Server error. Please try again later.');
         } finally {

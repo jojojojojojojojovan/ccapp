@@ -11,11 +11,11 @@ export function AuthProvider({ children }) {
     // Check localStorage when the app first loads
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const email = localStorage.getItem('userEmail');
+        const name = localStorage.getItem('name');
         const role = localStorage.getItem('userRole');
 
-        if (token && email) {
-          setUser({ token, email, role });
+        if (token && name) {
+          setUser({ token, name, role });
         }
         setLoading(false);
     }, []);
@@ -23,11 +23,11 @@ export function AuthProvider({ children }) {
     // Login function
     const login = (userData) => {
         localStorage.setItem('token', userData.token);
-        localStorage.setItem('userEmail', userData.email);
+        localStorage.setItem('name', userData.name);
         localStorage.setItem('userRole', userData.role);
         setUser({
             token: userData.token,
-            email: userData.email,
+            name: userData.name,
             role: userData.role,
         });
         navigate('/home');

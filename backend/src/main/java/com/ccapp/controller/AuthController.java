@@ -2,6 +2,7 @@ package com.ccapp.controller;
 
 import com.ccapp.entity.Role;
 import com.ccapp.entity.User;
+import com.ccapp.security.UserDetailsImpl;
 import com.ccapp.repository.RoleRepository;
 import com.ccapp.repository.UserRepository;
 import com.ccapp.security.JwtUtils;
@@ -42,18 +43,19 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@RequestBody Map<String, String> loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
-                loginRequest.get("email"), // Changed from "username"
+                loginRequest.get("email"),
                 loginRequest.get("password")
             )
         );
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         String jwt = jwtUtils.generateToken(authentication);
-        String role = authentication.getAuthorities().stream()
+        String role = userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .findFirst().orElse("ROLE_USER");
         Map<String, Object> response = new HashMap<>();
         response.put("token", jwt);
-        response.put("email", authentication.getName()); // Changed key name for clarity
+        response.put("name", userDetails.getName()); // Changed key name for clarity
         response.put("role", role);
 
         return ResponseEntity.ok(response);
