@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
@@ -32,14 +32,25 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2feed62d-fa55-45d8-bd8d-7478425d3022">
-      <console name="Connection" type="STANDARD" schema="postgres" session="Main" />
+      <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[select
+    u."created_at",
+    u."email",
+    u."id",
+    u."name",
+    u."password_hash",
+    u."role_id",
+    u."updated_at"
+from
+    "users" u;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" object-ref="consoles/Connection" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />
@@ -54,6 +65,9 @@
     <filter-actions connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" dataset="public.budgets" active-filter-id="6fe170fb-846b-4058-9866-582edfcc5024">
       <filter id="6fe170fb-846b-4058-9866-582edfcc5024" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
     </filter-actions>
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
