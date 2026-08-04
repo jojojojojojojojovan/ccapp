@@ -51,6 +51,9 @@
     <filter-actions connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" dataset="public.users" active-filter-id="9a25e303-90b0-4100-baa2-f76abbdeb996">
       <filter id="9a25e303-90b0-4100-baa2-f76abbdeb996" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
     </filter-actions>
+    <filter-actions connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" dataset="public.budgets" active-filter-id="6fe170fb-846b-4058-9866-582edfcc5024">
+      <filter id="6fe170fb-846b-4058-9866-582edfcc5024" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -634,5 +637,9 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+    <execution-variable-types />
   </component>
 </project>

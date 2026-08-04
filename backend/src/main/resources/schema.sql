@@ -1,0 +1,26 @@
+-- 1. Create Roles Table
+CREATE TABLE IF NOT EXISTS roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) NOT NULL UNIQUE
+);
+
+-- 2. Create Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INT NOT NULL REFERENCES roles(id) ON DELETE RESTRICT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Create Budgets Table
+CREATE TABLE IF NOT EXISTS budgets (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    amount DECIMAL(10, 2) NOT NULL,
+    month_year VARCHAR(7) NOT NULL, -- Format: 'YYYY-MM' (e.g. '2026-08')
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_user_month UNIQUE (user_id, month_year)
+);
