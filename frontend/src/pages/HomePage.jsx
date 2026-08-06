@@ -11,7 +11,14 @@ export default function HomePage() {
     const [isEditingBudget, setIsEditingBudget] = useState(false);
     const [budgetValue, setBudgetValue] = useState('');
     const [savedBudget, setSavedBudget] = useState(null);
+    const [amtSpent, setAmtSpent] = useState('0');
     const [loading, setLoading] = useState(false);
+
+    // Dynamic calculations
+    const budget = parseFloat(savedBudget) || 0;
+    const spent = parseFloat(amtSpent) || 0;
+    const remaining = budget - spent;
+    const isOverBudget = remaining < 0;
 
     const handleLogout = () => {
         logout();
@@ -110,42 +117,14 @@ export default function HomePage() {
     return (
         <div className="login-container">
             <div>
-                <h2>Hello, {user?.name || 'User'}!</h2>
+                <h2>Hello, {user?.name || user?.username || 'User'}!</h2>
                 <p>Welcome to your home page.</p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: '10px' }}>
-                {/* 1. Display Budget Message if set */}
-                {savedBudget !== null && !isEditingBudget ? (
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '10px',
-                        margin: '6px 0'
-                    }}>
-                        <p style={{ fontSize: '18px', fontWeight: '600', color: '#16a34a', margin: 0 }}>
-                            Your budget is ${savedBudget ? parseFloat(savedBudget).toFixed(2) : '0.00'}
-                        </p>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
 
-                        <button
-                            onClick={() => setIsEditingBudget(true)}
-                            style={{
-                                padding: '4px 4px',
-                                cursor: 'pointer',
-                                backgroundColor: 'transparent',
-                                border: '1px solid #16a34a',
-                                color: '#16a34a',
-                                borderRadius: '4px',
-                                fontSize: '12px'
-                            }}
-                        >
-                            Edit Budget
-                        </button>
-                    </div>
-
-                /* 2. Display Form when editing */
-                ) : isEditingBudget ? (
+                {/* 1. Show Form when editing */}
+                {isEditingBudget ? (
                     <form
                         onSubmit={handleBudgetSubmit}
                         style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '340px' }}
@@ -184,7 +163,10 @@ export default function HomePage() {
                         </button>
                         <button
                             type="button"
-                            onClick={() => setIsEditingBudget(false)}
+                            onClick={() => {
+                                setBudgetValue(savedBudget || '');
+                                setIsEditingBudget(false);
+                            }}
                             disabled={loading}
                             style={{
                                 padding: '8px 10px',
@@ -196,33 +178,88 @@ export default function HomePage() {
                                 fontWeight: '500'
                             }}
                         >
-                        X
+                            ✕
                         </button>
                     </form>
-
-                /* 3. Initial "+ Add Budget" Button */
                 ) : (
-                    <button
-                        onClick={() => setIsEditingBudget(true)}
-                        style={{
-                            padding: '10px 20px',
-                            cursor: 'pointer',
-                            backgroundColor: '#16a34a',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '4px',
-                            fontWeight: '600',
-                            width: '100%',
-                            maxWidth: '260px'
-                        }}
-                    >
-                        + Add Budget
-                    </button>
+                    /* 2. Show Budget & Spending Info when NOT editing */
+                    <>
+                        {savedBudget !== null ? (
+                            /* Budget is set: Show Budget Header + Edit Button */
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '10px',
+                                margin: '4px 0'
+                            }}>
+                                <p style={{ fontSize: '18px', fontWeight: '600', color: '#16a34a', margin: 0 }}>
+                                    Your budget is ${parseFloat(savedBudget).toFixed(2)}
+                                </p>
+
+                                <button
+                                    onClick={() => {
+                                        setBudgetValue(savedBudget);
+                                        setIsEditingBudget(true);
+                                    }}
+                                    style={{
+                                        padding: '4px 10px',
+                                        cursor: 'pointer',
+                                        backgroundColor: 'transparent',
+                                        border: '1px solid #16a34a',
+                                        color: '#16a34a',
+                                        borderRadius: '4px',
+                                        fontSize: '12px'
+                                    }}
+                                >
+                                    Edit Budget
+                                </button>
+                            </div>
+                        ) : (
+                            /* Budget NOT set: Show + Add Budget Button */
+                            <button
+                                onClick={() => setIsEditingBudget(true)}
+                                style={{
+                                    padding: '10px 20px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#16a34a',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    fontWeight: '600',
+                                    width: '100%',
+                                    maxWidth: '260px'
+                                }}
+                            >
+                                + Add Budget
+                            </button>
+                        )}
+
+                        {/* ALWAYS show amount spent when not editing */}
+                        <p style={{ fontSize: '16px', fontWeight: '600', color: '#dc2626', margin: '4px 0 0 0' }}>
+                            You have spent ${spent.toFixed(2)}.
+                        </p>
+
+                        {/* ONLY show remaining/overshot if budget is set */}
+                        {savedBudget !== null && (
+                            <p style={{
+                                fontSize: '18px',
+                                fontWeight: '600',
+                                color: isOverBudget ? '#dc2626' : '#16a34a',
+                                margin: '4px 0 0 0'
+                            }}>
+                                {isOverBudget
+                                    ? `You overshot your spending by $${Math.abs(remaining).toFixed(2)}`
+                                    : `You have $${remaining.toFixed(2)} left to spend.`
+                                }
+                            </p>
+                        )}
+                    </>
                 )}
             </div>
 
             {/* Bottom Buttons */}
-            <div style={{ display: 'flex', gap: '12px', width: '100%', justifyContent: 'center', marginTop: '10px'  }}>
+            <div style={{ display: 'flex', gap: '12px', width: '100%', justifyContent: 'center', marginTop: '20px' }}>
                 <button
                     onClick={handleRegisterUser}
                     style={{
