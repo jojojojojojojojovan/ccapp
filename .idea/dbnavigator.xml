@@ -33,6 +33,16 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2feed62d-fa55-45d8-bd8d-7478425d3022">
       <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[select
+    b."amount",
+    b."created_at",
+    b."id",
+    b."month_year",
+    b."updated_at",
+    b."user_id"
+from
+    "budgets" b;
+
+select
     u."created_at",
     u."email",
     u."id",
@@ -48,9 +58,7 @@ from
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />

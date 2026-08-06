@@ -66,7 +66,7 @@ export default function HomePage() {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
-        if (!budgetValue || budgetValue.trim() === '') {
+        if (!budgetValue) {
             alert('Please enter a budget amount!');
             return;
         }
@@ -109,21 +109,29 @@ export default function HomePage() {
 
     return (
         <div className="login-container">
-            <h2>Hello, {user?.name || 'User'}!</h2>
-            <p>Welcome to your home page.</p>
+            <div>
+                <h2>Hello, {user?.name || 'User'}!</h2>
+                <p>Welcome to your home page.</p>
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: '20px' }}>
-
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginTop: '10px' }}>
                 {/* 1. Display Budget Message if set */}
                 {savedBudget !== null && !isEditingBudget ? (
-                    <div style={{ textAlign: 'center', margin: '6px 0' }}>
-                        <p style={{ fontSize: '18px', fontWeight: '600', color: '#16a34a', margin: '0 0 6px 0' }}>
-                            Your budget is ${parseFloat(savedBudget).toFixed(2)}
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        margin: '6px 0'
+                    }}>
+                        <p style={{ fontSize: '18px', fontWeight: '600', color: '#16a34a', margin: 0 }}>
+                            Your budget is ${savedBudget ? parseFloat(savedBudget).toFixed(2) : '0.00'}
                         </p>
+
                         <button
                             onClick={() => setIsEditingBudget(true)}
                             style={{
-                                padding: '4px 10px',
+                                padding: '4px 4px',
                                 cursor: 'pointer',
                                 backgroundColor: 'transparent',
                                 border: '1px solid #16a34a',
@@ -140,11 +148,11 @@ export default function HomePage() {
                 ) : isEditingBudget ? (
                     <form
                         onSubmit={handleBudgetSubmit}
-                        style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '280px' }}
+                        style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '340px' }}
                     >
                         <input
                             type="number"
-                            step="0.01" /* 👈 Added to allow decimal amounts like 1500.50 */
+                            step="0.01"
                             value={budgetValue}
                             onChange={(e) => setBudgetValue(e.target.value)}
                             placeholder="Enter budget amount"
@@ -152,6 +160,7 @@ export default function HomePage() {
                             disabled={loading}
                             style={{
                                 flex: 1,
+                                minWidth: '0',
                                 padding: '8px 12px',
                                 borderRadius: '4px',
                                 border: '1px solid #ccc'
@@ -161,7 +170,7 @@ export default function HomePage() {
                             type="submit"
                             disabled={loading}
                             style={{
-                                padding: '8px 16px',
+                                padding: '8px 12px',
                                 cursor: loading ? 'not-allowed' : 'pointer',
                                 backgroundColor: '#16a34a',
                                 color: '#fff',
@@ -172,6 +181,22 @@ export default function HomePage() {
                             }}
                         >
                             {loading ? 'Saving...' : 'Submit'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setIsEditingBudget(false)}
+                            disabled={loading}
+                            style={{
+                                padding: '8px 10px',
+                                cursor: loading ? 'not-allowed' : 'pointer',
+                                backgroundColor: '#f3f4f6',
+                                color: '#4b5563',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '4px',
+                                fontWeight: '500'
+                            }}
+                        >
+                        X
                         </button>
                     </form>
 
@@ -194,37 +219,37 @@ export default function HomePage() {
                         + Add Budget
                     </button>
                 )}
+            </div>
 
-                {/* Bottom Buttons */}
-                <div style={{ display: 'flex', gap: '12px', width: '100%', justifyContent: 'center' }}>
-                    <button
-                        onClick={handleRegisterUser}
-                        style={{
-                            padding: '8px 16px',
-                            cursor: 'pointer',
-                            backgroundColor: '#0066cc',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '4px',
-                            fontWeight: '500'
-                        }}
-                    >
-                        Register User
-                    </button>
+            {/* Bottom Buttons */}
+            <div style={{ display: 'flex', gap: '12px', width: '100%', justifyContent: 'center', marginTop: '10px'  }}>
+                <button
+                    onClick={handleRegisterUser}
+                    style={{
+                        padding: '8px 16px',
+                        cursor: 'pointer',
+                        backgroundColor: '#0066cc',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        fontWeight: '500'
+                    }}
+                >
+                    Register User
+                </button>
 
-                    <button
-                        onClick={handleLogout}
-                        style={{
-                            padding: '8px 16px',
-                            cursor: 'pointer',
-                            backgroundColor: 'transparent',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px'
-                        }}
-                    >
-                        Log Out
-                    </button>
-                </div>
+                <button
+                    onClick={handleLogout}
+                    style={{
+                        padding: '8px 16px',
+                        cursor: 'pointer',
+                        backgroundColor: 'transparent',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px'
+                    }}
+                >
+                    Log Out
+                </button>
             </div>
         </div>
     );
