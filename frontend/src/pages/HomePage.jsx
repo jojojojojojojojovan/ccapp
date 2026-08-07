@@ -132,11 +132,15 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <div className="home-budget-section">
+            <div className="home-savings-section">
                 {/* 1. Show Form when editing */}
                 {isEditingBudget ? (
                     <form onSubmit={handleBudgetSubmit} className="home-budget-form">
+                        <label htmlFor="budget-input" className="home-budget-label">
+                            Edit budget:
+                        </label>
                         <input
+                            id="budget-input"
                             type="number"
                             step="0.01"
                             value={budgetValue}
@@ -166,7 +170,7 @@ export default function HomePage() {
                         </button>
                     </form>
                 ) : (
-                    /* 2. Show Budget & Spending Info when NOT editing */
+                    /* 2. Show Budget Info when NOT editing */
                     <>
                         {savedBudget !== null ? (
                             <div className="home-budget-display">
@@ -192,20 +196,20 @@ export default function HomePage() {
                                 + Add Budget
                             </button>
                         )}
-
-                        <p className="home-spent-text">
-                            You have spent ${spent.toFixed(2)}.
-                        </p>
-
-                        {savedBudget !== null && (
-                            <p className={`home-summary-text ${isOverBudget ? 'danger' : 'success'}`}>
-                                {isOverBudget
-                                    ? `You overshot your spending by $${Math.abs(remaining).toFixed(2)}`
-                                    : `You have $${remaining.toFixed(2)} left to spend.`
-                                }
-                            </p>
-                        )}
                     </>
+                )}
+
+                <p className="home-spent-text">
+                    You have spent ${spent.toFixed(2)}.
+                </p>
+
+                {savedBudget !== null && (
+                    <p className={`home-summary-text ${isOverBudget ? 'danger' : 'success'}`}>
+                        {isOverBudget
+                            ? `You overshot your spending by $${Math.abs(remaining).toFixed(2)}`
+                            : `You have $${remaining.toFixed(2)} left to spend.`
+                        }
+                    </p>
                 )}
             </div>
         </div>

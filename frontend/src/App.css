@@ -117,7 +117,7 @@
 }
 
 /* Budget Section Wrapper */
-.home-budget-section {
+.home-savings-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,9 +128,17 @@
 /* Budget Edit Form */
 .home-budget-form {
   display: flex;
+  align-items: center; /* Vertically centers the label, input, and buttons */
   gap: 8px;
   width: 100%;
-  max-width: 340px;
+  max-width: 420px; /* Slightly increased max-width to fit the label */
+}
+
+.home-budget-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-h);
+  white-space: nowrap; /* Prevents "Edit budget:" from wrapping */
 }
 
 .home-budget-input {
