@@ -35,7 +35,7 @@ export default function HomePage() {
         return `${year}-${month}`;
     };
 
-    // 1. Fetch budget on page load
+    // Fetch budget on page load
     useEffect(() => {
         const fetchBudget = async () => {
             const token = localStorage.getItem('token');
@@ -52,14 +52,14 @@ export default function HomePage() {
                 );
 
                 if (response.status === 401) {
-                    handleLogout(); // Now safe to call
+                    handleLogout();
                     return;
                 }
 
                 if (response.ok) {
                     const data = await response.json();
                     setSavedBudget(data.amount);
-                    setBudgetValue(data.amount); // Pre-fill input
+                    setBudgetValue(data.amount);
                 }
             } catch (err) {
                 console.error('Failed to fetch budget:', err);
@@ -115,20 +115,27 @@ export default function HomePage() {
     };
 
     return (
-        <div className="login-container">
-            <div>
-                <h2>Hello, {user?.name || user?.username || 'User'}!</h2>
-                <p>Welcome to your home page.</p>
+        <div className="home-container">
+            <div className="home-header">
+                <div>
+                    <h2>Hello, {user?.name || user?.username || 'User'}!</h2>
+                    <p>Welcome to your home page.</p>
+                </div>
+                <div className="home-actions">
+                    <button onClick={handleRegisterUser} className="home-btn-primary">
+                        Register User
+                    </button>
+
+                    <button onClick={handleLogout} className="home-btn-secondary">
+                        Log Out
+                    </button>
+                </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
-
+            <div className="home-budget-section">
                 {/* 1. Show Form when editing */}
                 {isEditingBudget ? (
-                    <form
-                        onSubmit={handleBudgetSubmit}
-                        style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '340px' }}
-                    >
+                    <form onSubmit={handleBudgetSubmit} className="home-budget-form">
                         <input
                             type="number"
                             step="0.01"
@@ -137,27 +144,12 @@ export default function HomePage() {
                             placeholder="Enter budget amount"
                             required
                             disabled={loading}
-                            style={{
-                                flex: 1,
-                                minWidth: '0',
-                                padding: '8px 12px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc'
-                            }}
+                            className="home-budget-input"
                         />
                         <button
                             type="submit"
                             disabled={loading}
-                            style={{
-                                padding: '8px 12px',
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                backgroundColor: '#16a34a',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '4px',
-                                fontWeight: '600',
-                                opacity: loading ? 0.7 : 1
-                            }}
+                            className="home-btn-success"
                         >
                             {loading ? 'Saving...' : 'Submit'}
                         </button>
@@ -168,15 +160,7 @@ export default function HomePage() {
                                 setIsEditingBudget(false);
                             }}
                             disabled={loading}
-                            style={{
-                                padding: '8px 10px',
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                backgroundColor: '#f3f4f6',
-                                color: '#4b5563',
-                                border: '1px solid #d1d5db',
-                                borderRadius: '4px',
-                                fontWeight: '500'
-                            }}
+                            className="home-btn-cancel"
                         >
                             ✕
                         </button>
@@ -185,15 +169,8 @@ export default function HomePage() {
                     /* 2. Show Budget & Spending Info when NOT editing */
                     <>
                         {savedBudget !== null ? (
-                            /* Budget is set: Show Budget Header + Edit Button */
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '10px',
-                                margin: '4px 0'
-                            }}>
-                                <p style={{ fontSize: '18px', fontWeight: '600', color: '#16a34a', margin: 0 }}>
+                            <div className="home-budget-display">
+                                <p className="home-budget-amount">
                                     Your budget is ${parseFloat(savedBudget).toFixed(2)}
                                 </p>
 
@@ -202,52 +179,26 @@ export default function HomePage() {
                                         setBudgetValue(savedBudget);
                                         setIsEditingBudget(true);
                                     }}
-                                    style={{
-                                        padding: '4px 10px',
-                                        cursor: 'pointer',
-                                        backgroundColor: 'transparent',
-                                        border: '1px solid #16a34a',
-                                        color: '#16a34a',
-                                        borderRadius: '4px',
-                                        fontSize: '12px'
-                                    }}
+                                    className="home-btn-edit"
                                 >
                                     Edit Budget
                                 </button>
                             </div>
                         ) : (
-                            /* Budget NOT set: Show + Add Budget Button */
                             <button
                                 onClick={() => setIsEditingBudget(true)}
-                                style={{
-                                    padding: '10px 20px',
-                                    cursor: 'pointer',
-                                    backgroundColor: '#16a34a',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '4px',
-                                    fontWeight: '600',
-                                    width: '100%',
-                                    maxWidth: '260px'
-                                }}
+                                className="home-btn-add"
                             >
                                 + Add Budget
                             </button>
                         )}
 
-                        {/* ALWAYS show amount spent when not editing */}
-                        <p style={{ fontSize: '16px', fontWeight: '600', color: '#dc2626', margin: '4px 0 0 0' }}>
+                        <p className="home-spent-text">
                             You have spent ${spent.toFixed(2)}.
                         </p>
 
-                        {/* ONLY show remaining/overshot if budget is set */}
                         {savedBudget !== null && (
-                            <p style={{
-                                fontSize: '18px',
-                                fontWeight: '600',
-                                color: isOverBudget ? '#dc2626' : '#16a34a',
-                                margin: '4px 0 0 0'
-                            }}>
+                            <p className={`home-summary-text ${isOverBudget ? 'danger' : 'success'}`}>
                                 {isOverBudget
                                     ? `You overshot your spending by $${Math.abs(remaining).toFixed(2)}`
                                     : `You have $${remaining.toFixed(2)} left to spend.`
@@ -256,37 +207,6 @@ export default function HomePage() {
                         )}
                     </>
                 )}
-            </div>
-
-            {/* Bottom Buttons */}
-            <div style={{ display: 'flex', gap: '12px', width: '100%', justifyContent: 'center', marginTop: '20px' }}>
-                <button
-                    onClick={handleRegisterUser}
-                    style={{
-                        padding: '8px 16px',
-                        cursor: 'pointer',
-                        backgroundColor: '#0066cc',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '4px',
-                        fontWeight: '500'
-                    }}
-                >
-                    Register User
-                </button>
-
-                <button
-                    onClick={handleLogout}
-                    style={{
-                        padding: '8px 16px',
-                        cursor: 'pointer',
-                        backgroundColor: 'transparent',
-                        border: '1px solid #ccc',
-                        borderRadius: '4px'
-                    }}
-                >
-                    Log Out
-                </button>
             </div>
         </div>
     );

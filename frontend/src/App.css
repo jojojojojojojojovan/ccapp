@@ -1,3 +1,8 @@
+/* ==========================================================================
+   LOGIN COMPONENT
+   ========================================================================== */
+
+/* Outer Container */
 .login-container {
   max-width: 380px;
   margin: 80px auto;
@@ -9,6 +14,7 @@
   text-align: left;
 }
 
+/* Headings & Alerts */
 .login-title {
   margin-top: 0;
   margin-bottom: 24px;
@@ -20,12 +26,14 @@
   font-size: 14px;
 }
 
+/* Form Layout */
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+/* Inputs & Labels */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -55,6 +63,7 @@
   box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
+/* Buttons */
 .login-button {
   padding: 12px;
   font-size: 15px;
@@ -71,3 +80,194 @@
 .login-button:hover {
   opacity: 0.9;
 }
+
+/* ==========================================================================
+   HOME PAGE COMPONENT
+   ========================================================================== */
+
+/* Outer Layout Container */
+.home-container {
+  width: 90%;
+  margin: 2% auto;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+/* Header & Greeting */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  text-align: left; /* Keeps greeting text left-aligned */
+}
+
+.home-header h2 {
+  margin: 0 0 6px 0;
+  color: var(--text-h);
+}
+
+.home-header p {
+  color: var(--text);
+  font-size: 15px;
+}
+
+/* Budget Section Wrapper */
+.home-budget-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Budget Edit Form */
+.home-budget-form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.home-budget-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-family: var(--sans);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.home-budget-input:focus {
+  border-color: var(--accent);
+}
+
+/* Budget Row Display */
+.home-budget-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 4px 0;
+}
+
+.home-budget-amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #16a34a;
+  margin: 0;
+}
+
+.home-spent-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #dc2626;
+  margin: 4px 0 0 0;
+}
+
+.home-summary-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 4px 0 0 0;
+}
+
+.home-summary-text.success {
+  color: #16a34a;
+}
+
+.home-summary-text.danger {
+  color: #dc2626;
+}
+
+/* Buttons */
+.home-btn-success {
+  padding: 8px 12px;
+  background-color: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.home-btn-success:hover {
+  opacity: 0.9;
+}
+
+.home-btn-success:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.home-btn-cancel {
+  padding: 8px 10px;
+  background-color: var(--code-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.home-btn-edit {
+  padding: 4px 10px;
+  background-color: transparent;
+  border: 1px solid #16a34a;
+  color: #16a34a;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.home-btn-add {
+  padding: 10px 20px;
+  background-color: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 100%;
+  max-width: 260px;
+  cursor: pointer;
+}
+
+/* Navigation & Bottom Actions */
+.home-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 0; /* Clears top margin so it aligns vertically */
+}
+
+.home-btn-primary {
+  padding: 8px 16px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.home-btn-secondary {
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   FUTURE COMPONENTS (Dashboard, Navigation, etc.)
+   ========================================================================== */
