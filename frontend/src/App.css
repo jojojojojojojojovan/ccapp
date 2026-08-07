@@ -127,23 +127,21 @@
 
 /* Layout row to align budget controls on left & date filter on right */
 .home-section-top {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* Creates 3 columns: empty left space, center content, right dropdown */
   align-items: center;
   width: 100%;
-  gap: 16px;
   margin-bottom: 12px;
 }
 
 .home-budget-controls {
-  display: flex;
-  align-items: center;
+  grid-column: 2;
+  justify-self: center;
 }
 
-/* Date Dropdown Styling */
 .home-date-filter {
-  display: flex;
-  align-items: center;
+  grid-column: 3;
+  justify-self: end;
 }
 
 .home-date-select {
