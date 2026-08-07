@@ -125,6 +125,44 @@
   margin-top: 16px;
 }
 
+/* Layout row to align budget controls on left & date filter on right */
+.home-section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.home-budget-controls {
+  display: flex;
+  align-items: center;
+}
+
+/* Date Dropdown Styling */
+.home-date-filter {
+  display: flex;
+  align-items: center;
+}
+
+.home-date-select {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.home-date-select:focus {
+  border-color: var(--accent);
+}
+
 /* Budget Edit Form */
 .home-budget-form {
   display: flex;
