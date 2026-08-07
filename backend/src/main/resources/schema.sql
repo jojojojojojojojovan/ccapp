@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS budgets (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT unique_user_month UNIQUE (user_id, month_year)
 );
+
+-- 4. Create Accounts Table
+CREATE TABLE IF NOT EXISTS accounts (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    initial DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    month_year VARCHAR(7) NOT NULL, -- Format: 'YYYY-MM' (e.g. '2026-08')
+    include BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
