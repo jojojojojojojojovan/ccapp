@@ -11,11 +11,11 @@
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
     <assistants>
-      <assistant-state connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+      <assistant-state connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
         <mcp-servers />
       </assistant-state>
-      <assistant-state connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
+      <assistant-state connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
         <mcp-servers />
       </assistant-state>
@@ -51,14 +51,28 @@ select
     u."role_id",
     u."updated_at"
 from
-    "users" u;]]></console>
+    "users" u;
+
+select
+    e."amount",
+    e."created_at",
+    e."id",
+    e."include",
+    e."month_year",
+    e."name",
+    e."updated_at",
+    e."user_id"
+from
+    "expenses" e;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="2feed62d-fa55-45d8-bd8d-7478425d3022" object-ref="consoles/Connection" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />
