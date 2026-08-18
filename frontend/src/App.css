@@ -312,26 +312,61 @@
   cursor: pointer;
 }
 
+/* ==========================================================================
+   OVERVIEW (ACCOUNTS & EXPENSES) SECTION
+   ========================================================================== */
+
 .home-accounts-section {
   margin-top: 24px;
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: var(--bg);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  text-align: left;
 }
 
 .accounts-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
+.accounts-header h3 {
+  margin: 0 0 4px 0;
+  color: var(--text-h);
+}
+
+.accounts-total {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* Overview Subheaders (Accounts / Expenses) */
+.overview-subheader {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 20px 0 12px 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+/* Forms (Add/Edit Account, Transfer, Add/Edit Expense) */
 .account-form {
-  background: #f8f9fa;
+  background: var(--code-bg);
   padding: 16px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.account-form h4 {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  color: var(--text-h);
 }
 
 .account-form .form-row {
@@ -341,28 +376,77 @@
   flex-wrap: wrap;
 }
 
+.account-form input[type="text"],
+.account-form input[type="number"],
+.account-form select {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.account-form input[type="text"]:focus,
+.account-form input[type="number"]:focus,
+.account-form select:focus {
+  border-color: var(--accent);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-h);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Tables */
 .accounts-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 12px;
 }
 
-.accounts-table th, .accounts-table td {
-  padding: 10px;
+.accounts-table th,
+.accounts-table td {
+  padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.accounts-table th {
+  font-weight: 600;
+  color: var(--text);
+  background: var(--code-bg);
 }
 
 .disabled-row {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .btn-icon {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  margin-right: 8px;
+  font-size: 1.1rem;
+  padding: 4px;
+  margin-right: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
 }
+
+.btn-icon:hover {
+  background: var(--border);
+}
+
 /* ==========================================================================
    FUTURE COMPONENTS (Dashboard, Navigation, etc.)
    ========================================================================== */
