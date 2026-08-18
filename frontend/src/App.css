@@ -448,5 +448,40 @@
 }
 
 /* ==========================================================================
+   MODAL DIALOG
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  width: 90%;
+  max-width: 480px;
+}
+
+.modal-content .account-form {
+  margin-bottom: 0;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+/* ==========================================================================
    FUTURE COMPONENTS (Dashboard, Navigation, etc.)
    ========================================================================== */

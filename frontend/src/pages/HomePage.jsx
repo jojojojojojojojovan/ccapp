@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { fmt, getCurrentMonthYear } from '../utils/helpers';
 
+import Modal from '../components/Modal';
 import Header from '../components/Header';
 import BudgetSection from '../components/BudgetSection';
 import DataTable from '../components/DataTable';
@@ -326,9 +327,11 @@ export default function HomePage() {
                 </div>
 
                 {/* Forms */}
-                {isAddingAccount && <AccountForm editingAccountId={editingAccountId} accountForm={accountForm} setAccountForm={setAccountForm} onSubmit={handleAccountSubmit} onCancel={closeAllForms} />}
-                {isTransferring && <TransferForm fromAccount={fromAccount} transferForm={transferForm} setTransferForm={setTransferForm} accounts={accounts} onSubmit={handleTransferSubmit} onCancel={closeAllForms} />}
-                {isAddingExpense && <ExpenseForm editingExpenseId={editingExpenseId} expenseForm={expenseForm} setExpenseForm={setExpenseForm} onSubmit={handleExpenseSubmit} onCancel={closeAllForms} />}
+                <Modal isOpen={isAddingAccount || isTransferring || isAddingExpense}>
+                  {isAddingAccount && <AccountForm editingAccountId={editingAccountId} accountForm={accountForm} setAccountForm={setAccountForm} onSubmit={handleAccountSubmit} onCancel={closeAllForms} />}
+                  {isTransferring && <TransferForm fromAccount={fromAccount} transferForm={transferForm} setTransferForm={setTransferForm} accounts={accounts} onSubmit={handleTransferSubmit} onCancel={closeAllForms} />}
+                  {isAddingExpense && <ExpenseForm editingExpenseId={editingExpenseId} expenseForm={expenseForm} setExpenseForm={setExpenseForm} onSubmit={handleExpenseSubmit} onCancel={closeAllForms} />}
+                </Modal>
 
                 {/* Tables */}
                 <h4 className="overview-subheader">Accounts</h4>
