@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../App.css';
@@ -100,6 +100,15 @@ export default function HomePage() {
         .filter(exp => exp.include)
         .reduce((sum, exp) => sum + (parseFloat(exp.amount) || 0), 0);
 
+    const sortedAccounts = useMemo(()=>{
+        return [...accounts].sort((a,b) => {
+            if (a.include !== b.include) {
+                return Number(b.include) - Number(a.include);
+            }
+
+            return (a.name || '').localeCompare(b.name || '');
+        });
+    }, [accounts]);
 
 
     const handleLogout = () => {
@@ -579,7 +588,7 @@ export default function HomePage() {
                     {/* Accounts Table */}
                     <h4 className="overview-subheader">Accounts</h4>
                     <DataTable
-                        items={accounts}
+                        items={sortedAccounts}
                         emptyMessage="No accounts found for this month."
                         columns={['Include', 'Name', 'Initial', 'Current Amount', 'Actions']}
                         renderRow={(acc) => (
@@ -595,8 +604,8 @@ export default function HomePage() {
                                 <td>${fmt(acc.initial)}</td>
                                 <td>${fmt(acc.amount)}</td>
                                 <td>
-                                    <button onClick={() => startAccountTransfer(acc)} className="btn-icon" title="Transfer Amount">↔️</button>
                                     <button onClick={() => startEditingAccount(acc)} className="btn-icon" title="Edit Account">✏️</button>
+                                    <button onClick={() => startAccountTransfer(acc)} className="btn-icon" title="Transfer Amount">↔️</button>
                                     <button onClick={() => handleDeleteAccount(acc.id)} className="btn-icon" title="Delete Account">🗑️</button>
                                 </td>
                             </tr>
