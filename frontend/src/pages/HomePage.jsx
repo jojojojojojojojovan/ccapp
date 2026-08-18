@@ -58,6 +58,9 @@ export default function HomePage() {
         .filter(acc => acc.include)
         .reduce((sum, acc) => sum + (parseFloat(acc.amount) || 0), 0);
 
+    const totalAllAccountsBalance = accounts
+        .reduce((sum, acc) => sum + (parseFloat(acc.amount) || 0), 0);
+
     const totalIncludedInitial = accounts
         .filter(acc => acc.include)
         .reduce((sum, acc) => sum + (parseFloat(acc.initial) || 0), 0);
@@ -314,9 +317,10 @@ export default function HomePage() {
                 <div className="accounts-header">
                     <div>
                         <h3>Overview</h3>
-                        <p className="accounts-total">
-                            Total Balance (Included): <strong>${fmt(totalIncludedBalance)}</strong>
-                        </p>
+                        <div className="accounts-total">
+                            <p>Total Balance (Included): <strong>${fmt(totalIncludedBalance)}</strong></p>
+                            <p>Total Balance (All Accounts): <strong>${fmt(totalAllAccountsBalance)}</strong></p>
+                        </div>
                     </div>
                     {!isAnyFormOpen && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
@@ -340,7 +344,7 @@ export default function HomePage() {
                     emptyMessage="No accounts found for this month."
                     columns={['Include', 'Name', 'Initial', 'Current Amount', 'Actions']}
                     renderRow={(acc) => (
-                        <tr key={acc.id} className={!acc.include ? 'disabled-row' : ''}>
+                        <tr key={acc.id}>
                             <td><input type="checkbox" checked={acc.include} onChange={() => handleToggleAccountInclude(acc)} /></td>
                             <td>{acc.name}</td>
                             <td>${fmt(acc.initial)}</td>
@@ -360,7 +364,7 @@ export default function HomePage() {
                     emptyMessage="No expenses found for this month."
                     columns={['Include', 'Name', 'Amount', 'Actions']}
                     renderRow={(exp) => (
-                        <tr key={exp.id} className={!exp.include ? 'disabled-row' : ''}>
+                        <tr key={exp.id}>
                             <td><input type="checkbox" checked={exp.include} onChange={() => handleToggleExpenseInclude(exp)} /></td>
                             <td>{exp.name}</td>
                             <td>${fmt(exp.amount)}</td>

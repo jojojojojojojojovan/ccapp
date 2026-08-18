@@ -465,10 +465,6 @@
   background: var(--code-bg);
 }
 
-.disabled-row {
-  opacity: 0.4;
-}
-
 .btn-icon {
   background: none;
   border: none;
