@@ -1,31 +1,52 @@
 export default function AccountForm({ editingAccountId, accountForm, setAccountForm, onSubmit, onCancel }) {
+    const isEditing = Boolean(editingAccountId);
+
     return (
         <form onSubmit={onSubmit} className="account-form">
-            <h4>{editingAccountId ? 'Edit Account' : 'New Account'}</h4>
-            <div className="form-row">
-                <input
-                    type="text"
-                    placeholder="Account Name (e.g. Checking)"
-                    value={accountForm.name}
-                    onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })}
-                    required
-                />
-                <input
-                    type="number"
-                    step="0.01"
-                    placeholder="Initial Balance"
-                    value={accountForm.initial}
-                    onChange={(e) => setAccountForm({ ...accountForm, initial: e.target.value })}
-                    required
-                />
-                <input
-                    type="number"
-                    step="0.01"
-                    placeholder="Current Amount"
-                    value={accountForm.amount}
-                    onChange={(e) => setAccountForm({ ...accountForm, amount: e.target.value })}
-                    required
-                />
+            <h4>{isEditing ? 'Edit Account' : 'New Account'}</h4>
+
+            {/* Inputs Row */}
+            <div className="form-row inputs-row">
+                <div className="form-group">
+                    <label>Account Name</label>
+                    <input
+                        type="text"
+                        placeholder="e.g. DBS Multiplier"
+                        value={accountForm.name}
+                        onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Initial Balance</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={accountForm.initial || '0.00'}
+                        onChange={(e) => setAccountForm({ ...accountForm, initial: e.target.value })}
+                        disabled={isEditing}
+                        title={isEditing ? 'Initial balance cannot be modified during edit' : ''}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Current Amount</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={accountForm.amount}
+                        onChange={(e) => setAccountForm({ ...accountForm, amount: e.target.value })}
+                        required
+                    />
+                </div>
+            </div>
+
+            {/* Actions Row */}
+            <div className="form-row actions-row">
                 <label className="checkbox-label">
                     <input
                         type="checkbox"
@@ -34,8 +55,10 @@ export default function AccountForm({ editingAccountId, accountForm, setAccountF
                     />
                     Include
                 </label>
-                <button type="submit" className="home-btn-success">Save</button>
-                <button type="button" onClick={onCancel} className="home-btn-cancel">Cancel</button>
+                <div className="button-group">
+                    <button type="submit" className="home-btn-success">Save</button>
+                    <button type="button" onClick={onCancel} className="home-btn-cancel">Cancel</button>
+                </div>
             </div>
         </form>
     );

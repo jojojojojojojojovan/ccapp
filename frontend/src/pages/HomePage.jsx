@@ -27,7 +27,7 @@ export default function HomePage() {
     const [accounts, setAccounts] = useState([]);
     const [isAddingAccount, setIsAddingAccount] = useState(false);
     const [editingAccountId, setEditingAccountId] = useState(null);
-    const [accountForm, setAccountForm] = useState({ name: '', initial: '', amount: '', include: true });
+    const [accountForm, setAccountForm] = useState({ name: '', initial: '0.00', amount: '', include: true });
 
     // Transfer State
     const [isTransferring, setIsTransferring] = useState(false);

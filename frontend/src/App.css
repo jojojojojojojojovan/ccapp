@@ -371,15 +371,43 @@
 
 .account-form .form-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
-  flex-wrap: wrap;
+}
+/* Row specifically containing input fields */
+.account-form .form-row.inputs-row {
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
+}
+
+/* Row specifically containing buttons/checkbox */
+.account-form .form-row.actions-row {
+  justify-content: space-between;
+}
+
+/* Input Wrappers & Labels */
+.account-form .form-group {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.account-form .form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+  white-space: nowrap;
 }
 
 .account-form input[type="text"],
 .account-form input[type="number"],
 .account-form select {
-  padding: 8px 12px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 8px 10px;
   font-size: 14px;
   font-family: var(--sans);
   border: 1px solid var(--border);
@@ -388,6 +416,15 @@
   color: var(--text-h);
   outline: none;
   transition: border-color 0.2s;
+}
+.account-form input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.account-form .button-group {
+  display: flex;
+  gap: 8px;
 }
 
 .account-form input[type="text"]:focus,
@@ -472,7 +509,7 @@
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   width: 90%;
-  max-width: 480px;
+  max-width: 560px;
 }
 
 .modal-content .account-form {
