@@ -165,7 +165,15 @@ export default function AdminHomePage() {
     };
 
     // Card Handlers
-    const startAddingCard = () => { closeAllForms(); setIsAddingCard(true); };
+    const startAddingCard = () => {
+        if (banks.length === 0) {
+            alert('No banks, please add a bank first before adding cards.');
+            return;
+        }
+        closeAllForms();
+        setIsAddingCard(true);
+    };
+
     const startEditingCard = (exp) => {
         closeAllForms();
         setEditingCardId(exp.id);
