@@ -27,7 +27,7 @@ export default function App() {
                     />
 
                     <Route path="/register" element={
-                        <ProtectedRoute>
+                        <ProtectedRoute adminOnly>
                             <RegisterPage />
                         </ProtectedRoute>
                         }

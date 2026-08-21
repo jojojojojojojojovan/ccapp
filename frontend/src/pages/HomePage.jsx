@@ -299,10 +299,12 @@ export default function HomePage() {
             <Header
               user={user}
               button={
-                <button onClick={() => navigate('/register')} className="home-btn-primary">
-                  Register User
-                </button>
-              }
+                  user?.role === 'ROLE_ADMIN' ? (
+                    <button onClick={() => navigate('/register')} className="home-btn-primary">
+                      Register User
+                    </button>
+                  ) : null
+                }
               onLogout={logout}
             />
             <BudgetSection
