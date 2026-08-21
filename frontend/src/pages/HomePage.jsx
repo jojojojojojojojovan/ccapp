@@ -296,8 +296,15 @@ export default function HomePage() {
 
     return (
         <div className="home-container">
-            <Header user={user} onRegister={() => navigate('/register')} onLogout={logout} />
-
+            <Header
+              user={user}
+              button={
+                <button onClick={() => navigate('/register')} className="home-btn-primary">
+                  Register User
+                </button>
+              }
+              onLogout={logout}
+            />
             <BudgetSection
                 isEditingBudget={isEditingBudget}
                 setIsEditingBudget={setIsEditingBudget}
